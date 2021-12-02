@@ -11,12 +11,13 @@ RUN git pull
 WORKDIR "/go/src"
 
 RUN ./make.bash
-RUN /go/bin/go version
+
+WORKDIR "/go"
+RUN rm -rf .git
 
 FROM alpine:latest
 
-COPY --from=go-nightly-build /go/pkg /usr/local/go/pkg
-COPY --from=go-nightly-build /go/bin /usr/local/go/bin
+COPY --from=go-nightly-build /go /usr/local/go
 
 ENV GOROOT /usr/local/go
 ENV GOPATH /go
