@@ -3,6 +3,8 @@ FROM alpine:latest as go-nightly-build
 RUN apk update && apk add --no-cache git make musl-dev bash go
 RUN git clone --recursive https://go.googlesource.com/go
 
+ENV GOROOT_BOOTSTRAP=/usr/lib/go
+
 WORKDIR "/go"
 
 RUN git fetch
